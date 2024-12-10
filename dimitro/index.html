@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gra - Zgadnij Liczbę</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+    }
+    h1 {
+      color: #4CAF50;
+    }
+    input[type="number"] {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .message {
+      font-size: 18px;
+      margin-top: 15px;
+    }
+    .message.correct {
+      color: green;
+    }
+    .message.incorrect {
+      color: red;
+    }
+    .attempts {
+      font-size: 14px;
+      color: #555;
+    }
+    .reset {
+      margin-top: 15px;
+      background-color: #f44336;
+    }
+    .reset:hover {
+      background-color: #e53935;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Zgadnij Liczbę</h1>
+    <p>Gra polega na zgadnięciu liczby od 1 do 100 w maksymalnie 10 próbach.</p>
+    <input type="number" id="guess" placeholder="Wpisz liczbę" min="1" max="100">
+    <button id="submit">Sprawdź</button>
+    <p class="attempts">Pozostało prób: <span id="attempts-left">10</span></p>
+    <p class="message" id="message"></p>
+    <button id="reset" class="reset" style="display:none;">Spróbuj Ponownie</button>
+  </div>
+
+  <script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attemptsLeft = 10;
+
+    const guessInput = document.getElementById('guess');
+    const submitButton = document.getElementById('submit');
+    const attemptsLeftElement = document.getElementById('attempts-left');
+    const messageElement = document.getElementById('message');
+    const resetButton = document.getElementById('reset');
+
+    function checkGuess() {
+      const userGuess = parseInt(guessInput.value);
+      
+      if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+        messageElement.textContent = 'Proszę wpisać liczbę od 1 do 100.';
+        messageElement.classList.remove('correct', 'incorrect');
+        return;
+      }
+
+      attemptsLeft--;
+
+      if (userGuess === randomNumber) {
+        messageElement.textContent = 'Brawo! Zgadłeś liczbę!';
+        messageElement.classList.add('correct');
+        endGame();
+      } else if (userGuess > randomNumber) {
+        messageElement.textContent = 'Nie zgadłeś! Spróbuj mniejszą. ↘';
+        messageElement.classList.add('incorrect');
+      } else {
+        messageElement.textContent = 'Nie zgadłeś! Spróbuj większą. ↗';
+        messageElement.classList.add('incorrect');
+      }
+
+      attemptsLeftElement.textContent = attemptsLeft;
+
+      if (attemptsLeft <= 0) {
+        messageElement.textContent = 'Niestety, skończyły Ci się próby! Liczba to ' + randomNumber + '.';
+        messageElement.classList.add('incorrect');
+        endGame();
+      }
+
+      guessInput.value = '';
+    }
+
+    function endGame() {
+      guessInput.disabled = true;
+      submitButton.disabled = true;
+      resetButton.style.display = 'inline-block';
+    }
+
+    function resetGame() {
+      randomNumber = Math.floor(Math.random() * 100) + 1;
+      attemptsLeft = 10;
+      attemptsLeftElement.textContent = attemptsLeft;
+      messageElement.textContent = '';
+      messageElement.classList.remove('correct', 'incorrect');
+      guessInput.disabled = false;
+      submitButton.disabled = false;
+      resetButton.style.display = 'none';
+      guessInput.value = '';
+    }
+
+    submitButton.addEventListener('click', checkGuess);
+    resetButton.addEventListener('click', resetGame);
+  </script>
+
+</body>
+</html>
