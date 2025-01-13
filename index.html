@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikacja - Zadania</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        nav {
+            background-color: #555;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+        nav a:hover {
+            background-color: #777;
+        }
+        .content {
+            padding: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input, select {
+            padding: 8px;
+            margin: 5px 0;
+            width: calc(100% - 16px);
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Aplikacja - Zadania</h1>
+</header>
+
+<nav>
+    <a href="#" data-task="task1">Zadanie 1</a>
+    <a href="#" data-task="task2">Zadanie 2</a>
+    <a href="#" data-task="task3">Zadanie 3</a>
+    <a href="#" data-task="task4">Zadanie 4</a>
+    <a href="#" data-task="task5">Zadanie 5</a>
+    <a href="#" data-task="task6">Zadanie 6</a>
+    <a href="#" data-task="task7">Zadanie 7</a>
+    <a href="#" data-task="task8">Zadanie 8</a>
+    <a href="#" data-task="task9">Zadanie 9</a>
+</nav>
+
+<div class="content">
+    <!-- Zadanie 1 -->
+    <div id="task1" class="hidden">
+        <h2>Zadanie 1: Depozyt</h2>
+        <p>Oblicz dzienny zysk z depozytu ulokowanego na półtora roku przy stopie 4.5%.</p>
+        <input type="number" id="depositAmount" placeholder="Kwota depozytu (PLN)">
+        <button onclick="calculateDeposit()">Oblicz</button>
+        <p id="depositResult"></p>
+    </div>
+
+    <!-- Zadanie 2 -->
+    <div id="task2" class="hidden">
+        <h2>Zadanie 2: Podatki</h2>
+        <p>Oblicz kwotę podatków i dochód netto.</p>
+        <input type="number" id="income" placeholder="Dochód (PLN)">
+        <button onclick="calculateTaxes()">Oblicz</button>
+        <p id="taxResult"></p>
+    </div>
+
+    <!-- Zadanie 3 -->
+    <div id="task3" class="hidden">
+        <h2>Zadanie 3: Obliczenia geometryczne</h2>
+        <select id="geoOption">
+            <option value="square">Obwód kwadratu</option>
+            <option value="cube">Objętość i pole boczne sześcianu</option>
+            <option value="circle">Długość i pole okręgu</option>
+            <option value="density">Gęstość materiału</option>
+            <option value="population">Gęstość zaludnienia</option>
+            <option value="triangle">Przeciwprostokątna trójkąta</option>
+            <option value="function">Wartość funkcji y</option>
+        </select>
+        <input type="number" id="geoInput1" placeholder="Długość boków">
+        <input type="number" id="geoInput2" placeholder="Dane wejściowe 2" class="hidden">
+        <button onclick="calculateGeometry()">Oblicz</button>
+        <p id="geoResult"></p>
+    </div>    
+
+    <!-- Zadanie 4 -->
+    <div id="task4" class="hidden">
+        <h2>Zadanie 4: Opłata bankowa</h2>
+        <p>Oblicz opłatę za przelew.</p>
+        <input type="number" id="transferAmount" placeholder="Kwota przelewu (PLN)">
+        <button onclick="calculateTransferFee()">Oblicz</button>
+        <p id="transferResult"></p>
+    </div>
+
+    <!-- Zadanie 5 -->
+    <div id="task5" class="hidden">
+        <h2>Zadanie 5: BMI</h2>
+        <p>Oblicz wskaźnik masy ciała (BMI).</p>
+        <input type="number" id="bmiWeight" placeholder="Waga (kg)">
+        <input type="number" id="bmiHeight" placeholder="Wzrost (cm)">
+        <button onclick="calculateBMI()">Oblicz</button>
+        <p id="bmiResult"></p>
+    </div>
+
+    <!-- Zadanie 6 -->
+    <div id="task6" class="hidden">
+        <h2>Zadanie 6: Spłata pożyczki</h2>
+        <p>Oblicz schemat spłaty pożyczki.</p>
+        <input type="number" id="loanAmount" placeholder="Kwota pożyczki (PLN)">
+        <input type="number" id="interestRate" placeholder="Oprocentowanie roczne (%)">
+        <input type="number" id="loanTerm" placeholder="Okres kredytowania (miesiące)">
+        <button onclick="calculateLoan()">Oblicz</button>
+        <div id="loanResult"></div>
+    </div>
+
+    <!-- Zadanie 7 -->
+    <div id="task7" class="hidden">
+        <h2>Zadanie 7: Temperatury</h2>
+        <p>Podaj dzienne temperatury oddzielone przecinkami:</p>
+        <textarea id="temp" placeholder="Np. -2, -1, 1, -3, -4, 2"></textarea>
+        <button onclick="analyzeTemperatures()">Analizuj</button>
+        <p id="tempResult"></p>
+    </div>
+
+    <!-- Zadanie 8 -->
+    <div id="task8" class="hidden">
+        <h2>Zadanie 8: Gra - Zgadnij liczbę</h2>
+        <p id="describe">Gra polega na zgadywaniu liczby od 1 do 100. Masz 10 prób!</p>
+        <input type="number" id="guess" placeholder="Twoja liczba">
+        <button onclick="guessGame()">Zgadnij</button>
+        <p id="gameResult"></p>
+    </div>
+
+    <!-- Zadanie 9 -->
+    <div id="task9" class="hidden">
+        <h2>Zadanie 9: Filtracja listy</h2>
+        <input type="text" id="elastic" placeholder="Filtruj...">
+        <ol>
+            <li>Jabłko</li>
+            <li>Gruszka</li>
+            <li>Pomarańcza</li>
+            <li>Cytryna</li>
+            <li>Winogrono</li>
+        </ol>
+    </div>
+</div>
+
+<script>
+    // Zarządzanie widokami
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function () {
+            document.querySelectorAll('.content > div').forEach(div => div.classList.add('hidden'));
+            document.getElementById(this.dataset.task).classList.remove('hidden');
+        });
+    });
+
+    // Zadanie 3 - addEventListener
+    document.getElementById('geoOption').addEventListener('change', function () {
+        const option = document.getElementById('geoOption').value;
+
+        switch (option) {
+            case 'square': // Obwód kwadratu
+                document.getElementById('geoInput1').classList.remove('hidden');
+                document.getElementById('geoInput1').placeholder = 'Długość boków'
+                document.getElementById('geoInput2').classList.add('hidden');
+                break;
+
+            case 'cube': // Objętość i pole boczne sześcianu
+                document.getElementById('geoInput1').classList.remove('hidden');
+                document.getElementById('geoInput1').placeholder = 'Długość krawędzi'
+                document.getElementById('geoInput2').classList.add('hidden');
+                break;
+
+            case 'circle': // Długość i pole okręgu
+                document.getElementById('geoInput1').classList.remove('hidden');
+                document.getElementById('geoInput1').placeholder = 'Długość promienia'
+                document.getElementById('geoInput2').classList.add('hidden');
+                break;
+
+            case 'density': // Gęstość materiału
+                document.getElementById('geoInput1').classList.remove('hidden');
+                document.getElementById('geoInput1').placeholder = 'Masa materiału (kg)'
+                document.getElementById('geoInput2').classList.remove('hidden');
+                document.getElementById('geoInput2').placeholder = 'Objętość materiału (m³)'
+                break;
+
+            case 'population': // Gęstość zaludnienia
+                document.getElementById('geoInput1').classList.remove('hidden');
+                document.getElementById('geoInput1').placeholder = 'Liczba osób'
+                document.getElementById('geoInput2').classList.remove('hidden');
+                document.getElementById('geoInput2').placeholder = 'Powierzchnia (km)'
+                break;
+
+            case 'triangle': // Przeciwprostokątna trójkąta
+                document.getElementById('geoInput1').classList.remove('hidden');
+                document.getElementById('geoInput1').placeholder = 'Pierwszy kąt trójkąta'
+                document.getElementById('geoInput2').classList.remove('hidden');
+                document.getElementById('geoInput2').placeholder = 'Drugi kąt trójkąta'
+                break;
+
+            case 'function': // Wartość funkcji y
+                document.getElementById('geoInput1').classList.remove('hidden');
+                document.getElementById('geoInput2').classList.add('hidden');
+                document.getElementById('geoInput1').placeholder = 'Wartość'
+                break;
+        }
+    });
+
+    // Zadanie 1
+    function calculateDeposit() {
+        const deposit = parseFloat(document.getElementById('depositAmount').value);
+        if (isNaN(deposit)) return alert('Podaj poprawną kwotę depozytu!');
+        const dailyProfit = (deposit * 0.045 * 1.5) / 365;
+        document.getElementById('depositResult').innerText = `Dzienny zysk wynosi: ${dailyProfit.toFixed(2)} PLN`;
+    }
+
+    // Zadanie 2
+    function calculateTaxes() {
+        const brutto = parseFloat(document.getElementById('income').value);
+        if (isNaN(brutto)) return alert('Podaj poprawną kwotę dochodu!');
+        const netto = (brutto * 0.88);
+        document.getElementById('taxResult').innerText = `Kwota netto wynosi: ${netto.toFixed(2)} PLN`;
+    }
+
+    // Zadanie 3
+    function calculateGeometry() {
+        const option = document.getElementById('geoOption').value;
+        const input1 = parseFloat(document.getElementById('geoInput1').value);
+        const input2 = parseFloat(document.getElementById('geoInput2').value);
+
+        let result = '';
+
+        switch (option) {
+            case 'square': // Obwód kwadratu
+                if (input1 <= 0) {
+                    result = 'Bok kwadratu musi być większy od 0.';
+                } else {
+                    result = `Obwód kwadratu: ${4 * input1}`;
+                }
+                break;
+
+            case 'cube': // Objętość i pole boczne sześcianu
+                if (input1 <= 0) {
+                    result = 'Długość krawędzi musi być większa od 0.';
+                } else {
+                    const volume = Math.pow(input1, 3);
+                    const surface = 4 * Math.pow(input1, 2);
+                    result = `Objętość: ${volume}, Pole powierzchni bocznej: ${surface}.`;
+                }
+                break;
+
+            case 'circle': // Długość i pole okręgu
+                if (input1 <= 0) {
+                    result = 'Promień okręgu musi być większy od 0.';
+                } else {
+                    const circumference = 2 * Math.PI * input1;
+                    const area = Math.PI * Math.pow(input1, 2);
+                    result = `Długość okręgu: ${circumference.toFixed(2)}, Pole: ${area.toFixed(2)}.`;
+                }
+                break;
+
+            case 'density': // Gęstość materiału
+                if (input1 <= 0 || input2 <= 0) {
+                    result = 'Objętość i masa muszą być większe od 0.';
+                } else {
+                    const density = input2 / input1;
+                    result = `Gęstość materiału: ${density.toFixed(2)} kg/m³.`;
+                }
+                break;
+
+            case 'population': // Gęstość zaludnienia
+                if (input1 <= 0 || input2 <= 0) {
+                    result = 'Liczba mieszkańców i powierzchnia muszą być większe od 0.';
+                } else {
+                    const popDensity = input1 / input2;
+                    result = `Gęstość zaludnienia: ${popDensity.toFixed(2)} osób/km².`;
+                }
+                break;
+
+            case 'triangle': // Przeciwprostokątna trójkąta
+                if (input1 <= 0 || input2 <= 0) {
+                    result = 'Oba kąty muszą być większe od 0.';
+                } else {
+                    const hypotenuse = Math.sqrt(Math.pow(input1, 2) + Math.pow(input2, 2));
+                    result = `Przeciwprostokątna: ${hypotenuse.toFixed(2)}`;
+                }
+                break;
+
+            case 'function': // Wartość funkcji y
+                if (input1 <= 0) {
+                    result = 'Wartość a musi być większa od 0.';
+                } else {
+                    const y = (Math.pow(input1, 2) + 10) / Math.sqrt(Math.pow(input1, 2) + 1);
+                    result = `Wartość y: ${y.toFixed(2)}.`;
+                }
+                break;
+
+            default:
+                result = 'Nieznana operacja.';
+        }
+
+        document.getElementById('geoResult').innerText = result;
+    }
+    // Zadanie 4
+    function calculateTransferFee() {
+        const transfer = parseFloat(document.getElementById('transferAmount').value);
+        if (isNaN(transfer)) return alert('Podaj poprawną kwotę przelewu!')
+        else {
+            let fee = transfer * 0.01;
+            if(fee > 250) { fee = 250 };
+            document.getElementById('transferResult').innerText = `Opłata za przelew: ${fee.toFixed(2)} PLN`;
+        }
+    }
+    // Zadanie 5
+    function calculateBMI() {
+        const weight = parseFloat(document.getElementById('bmiWeight').value);
+        let height = parseFloat(document.getElementById('bmiHeight').value);
+        let result = 'Brak';
+        if (isNaN(weight) || isNaN(height)) return alert('Podaj poprawne dane!')
+        else {
+            height /= 100;
+            const bmi = weight / Math.pow(height, 2);
+            if(bmi < 16) {
+                result = 'Wygłodzenie';
+            }
+            else if(bmi <= 16.9) {
+                result = 'Wychudzenie';
+            }
+            else if(bmi <= 18.4) {
+                result = 'Niedowaga';
+            }
+            else if(bmi <= 24.9) {
+                result = 'Waga prawidłowa';
+            }
+            else if(bmi <= 29.9) {
+                result = 'Nadwaga';
+            }
+            else if(bmi <= 34.9) {
+                result = 'Otyłość 1 stopnia';
+            }
+            else if(bmi <= 39.9) {
+                result = 'Otyłość 2 stopnia';
+            }
+            else {
+                result = 'Otyłość 3 stopnia';
+            }
+            document.getElementById('bmiResult').innerText = `Twoje BMI wynosi: ${bmi.toFixed(1)} | Interpretacja wyniku: ${result}`;
+        }
+    }
+    // Zadanie 6
+    function calculateLoan() {
+        const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+        const interestRate = parseFloat(document.getElementById('interestRate').value);
+        const loanTerm = parseInt(document.getElementById('loanTerm').value);
+        if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(loanTerm)) {
+            document.getElementById('loanResult').innerText = 'Proszę wprowadzić poprawne dane.';
+            return;
+        }
+
+        const monthlyRate = interestRate / 12 / 100;
+        const monthlyPayment = loanAmount * monthlyRate / (1 - Math.pow(1 + monthlyRate, -loanTerm));
+        let remainingBalance = loanAmount;
+        let totalInterest = 0;
+        let resultHTML = '<table>'; 
+        resultHTML += '<tr><th>Miesiąc</th><th>Spłata kapitału</th><th>Odsetki</th><th>Łączna rata</th><th>Pozostały kapitał</th></tr>';
+
+        for (let month = 1; month <= loanTerm; month++) {
+            const interest = remainingBalance * monthlyRate;
+            const principal = monthlyPayment - interest;
+            remainingBalance -= principal;
+            totalInterest += interest;
+
+            resultHTML += `
+                <tr>
+                    <td>${month}</td>
+                    <td>${principal.toFixed(2)} PLN</td>
+                    <td>${interest.toFixed(2)} PLN</td>
+                    <td>${monthlyPayment.toFixed(2)} PLN</td>
+                    <td>${remainingBalance.toFixed(2)} PLN</td>
+                </tr>`;
+        }
+
+        resultHTML += `</table>`;
+        resultHTML += `<p>Całkowita nadpłata wynosi: ${totalInterest.toFixed(2)} PLN</p>`;
+        document.getElementById('loanResult').innerHTML = resultHTML;
+    }
+
+    // Zadanie 7
+    function analyzeTemperatures() {
+        const input = document.getElementById('temp').value.trim();
+        const temperatures = input.split(',').map(temp => parseFloat(temp));
+        if (temperatures.some(isNaN)) {
+            document.getElementById('tempResult').innerText = 'Wprowadź prawidłowe dane (liczby oddzielone przecinkami).';
+            return;
+        }
+
+        let frostCount = 0;
+        let longestFrost = 0;
+        let currentFrostStreak = 0;
+
+        for (let i = 0; i < temperatures.length; i++) {
+            if (temperatures[i] < 0) {
+                currentFrostStreak++;
+                longestFrost = Math.max(longestFrost, currentFrostStreak);
+            } else {
+                currentFrostStreak = 0;
+            }
+            if (i > 0 && temperatures[i - 1] > 0 && temperatures[i] < 0) {
+                frostCount++;
+            }
+        }
+
+        document.getElementById('tempResult').innerText =
+            `Przymrozki: ${frostCount}\nNajdłuższy okres mrozu: ${longestFrost} dni.`;
+    }
+
+    // Zadanie 8
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attemptsLeft = 10;
+    
+    function guessGame() {
+        const guess = parseInt(document.getElementById('guess').value);
+        if (isNaN(guess) || guess < 1 || guess > 100) return alert('Wprowadź liczbę od 1 do 100.');
+
+        attemptsLeft--;
+
+        if (guess === randomNumber) {
+            document.getElementById('gameResult').innerText = 'Gratulacje! Wygrałeś!';
+        } else if (attemptsLeft === 0) {
+            document.getElementById('gameResult').innerText = `Przegrałeś! Prawidłowa liczba to ${randomNumber}.`;
+        } else {
+            const hint = guess < randomNumber ? 'większa' : 'mniejsza';
+            document.getElementById('gameResult').innerText = `Nie zgadłeś! Liczba jest ${hint}.`;
+            document.getElementById('describe').innerText = `Gra polega na zgadywaniu liczby od 1 do 100. Masz ${attemptsLeft} prób!`;
+        }
+    }
+
+    // Zadanie 9
+    document.querySelector('#elastic').oninput = function () {
+        const val = this.value.trim().toLowerCase();
+        const listItems = document.querySelectorAll('ol li');
+
+        listItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(val) ? '' : 'none';
+        });
+    };
+</script>
+
+</body>
+</html>
